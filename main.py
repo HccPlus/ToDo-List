@@ -281,9 +281,15 @@ while True:
         clear(undo)
 
     elif op == "ipt":
+        reset = False
+        if addition and addition[0] == "-r":
+            reset = True
+            del addition[0]
         if addition:
             print("The addition order is invalid!")
             continue
+        if reset:
+            clear(True)
         fun_import()
 
     elif op == "cls":
