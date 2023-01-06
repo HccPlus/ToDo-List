@@ -143,11 +143,11 @@ def clear(undo):
         JsonData["list"].clear()
         return
     cnt = 0
-    for i in JsonData["list"]:
-        if i["done"] == True:
-            del JsonData["list"][cnt]
-            cnt -= 1
-        cnt += 1
+    for i in range(len(JsonData["list"])):
+        if JsonData["list"][cnt]["done"] == True:
+            JsonData["list"].pop(cnt)
+        else:
+            cnt += 1
 
 
 def fun_import():
@@ -167,7 +167,7 @@ def fun_import():
                 else:
                     ddl = ddl[0]*31 + ddl[1]
                 ListTemp.append({"name": name, "ddl": ddl})
-    ListTemp = sorted(ListTemp, key=lambda task:task["ddl"])
+    ListTemp = sorted(ListTemp, key=lambda task: task["ddl"])
     for task in ListTemp:
         add(task["name"], False)
 
@@ -187,7 +187,7 @@ def help():
 
 
 op = None
-addition = None
+addition = []
 read()
 view()
 while True:
@@ -196,7 +196,7 @@ while True:
     if len(order) == 0:
         continue
     op = order[0]
-    addition = None
+    addition = []
     if len(order) > 1:
         addition = order[1:]
 
@@ -256,7 +256,7 @@ while True:
             continue
         finish(num)
         if doclear:
-            clear()
+            clear(False)
 
     elif op == "foc":
         if addition:
